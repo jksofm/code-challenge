@@ -1,10 +1,10 @@
-import type { Config } from "jest";
+import type { Config } from 'jest';
 
 const config: Config = {
-  testEnvironment: "node",
-  setupFilesAfterEnv: ["../../jest-setup.ts"],
+  testEnvironment: 'node',
+  setupFilesAfterEnv: ['../../jest-setup.ts'],
   transform: {
-    "^.+\\.(t|j)sx?$": "@swc/jest",
+    '^.+\\.(t|j)sx?$': '@swc/jest',
   },
 };
 

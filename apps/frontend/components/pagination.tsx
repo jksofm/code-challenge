@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface PaginationProps {
   currentPage: number;
@@ -6,13 +6,13 @@ interface PaginationProps {
   onPageChange: (pageNumber: number) => void;
 }
 
-export  function Pagination({
+export function Pagination({
   currentPage,
   totalPages,
-  onPageChange
+  onPageChange,
 }: PaginationProps) {
   const handlePageChange = (pageNumber: number | string) => {
-    if (pageNumber !== "..." && pageNumber !== currentPage) {
+    if (pageNumber !== '...' && pageNumber !== currentPage) {
       onPageChange(pageNumber as number);
     }
   };
@@ -29,7 +29,7 @@ export  function Pagination({
         for (let i = 1; i <= 7; i++) {
           pageNumbers.push(i);
         }
-        pageNumbers.push("...");
+        pageNumbers.push('...');
         for (let i = totalPages - 2; i <= totalPages; i++) {
           pageNumbers.push(i);
         }
@@ -37,7 +37,7 @@ export  function Pagination({
         for (let i = 1; i <= 3; i++) {
           pageNumbers.push(i);
         }
-        pageNumbers.push("...");
+        pageNumbers.push('...');
         for (let i = totalPages - 6; i <= totalPages; i++) {
           pageNumbers.push(i);
         }
@@ -45,11 +45,11 @@ export  function Pagination({
         for (let i = 1; i <= 2; i++) {
           pageNumbers.push(i);
         }
-        pageNumbers.push("...");
+        pageNumbers.push('...');
         for (let i = currentPage - 2; i <= currentPage + 2; i++) {
           pageNumbers.push(i);
         }
-        pageNumbers.push("...");
+        pageNumbers.push('...');
         for (let i = totalPages - 1; i <= totalPages; i++) {
           pageNumbers.push(i);
         }
@@ -60,7 +60,7 @@ export  function Pagination({
       <span
         key={index}
         className={`cursor-pointer w-10 h-10 rounded-full flex items-center justify-center ${
-          number === currentPage ? "bg-blue-500 text-white font-bold" : ""
+          number === currentPage ? 'bg-blue-500 text-white font-bold' : ''
         }`}
         onClick={() => handlePageChange(number)}
       >
