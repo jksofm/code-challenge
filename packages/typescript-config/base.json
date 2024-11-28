@@ -15,7 +15,16 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2022",
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@ui/*": ["../../packages/ui/src/*"],
+      "@data/*": ["../../packages/data/src/*"],
+      "@models/*": ["../../packages/models/src/*"],
+      "@utils/*": ["../../packages/utils/src/*"],
+      "@constants/*": ["../../packages/constants/src/*"]
+    }
   },
   "ts-node": {
 		"swc": true

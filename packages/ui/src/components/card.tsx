@@ -1,9 +1,8 @@
-import React from 'react';
-import { Request } from '../models';
-import dayjs from 'dayjs';
-
+import React from "react";
+import dayjs from "dayjs";
+import { RequestItem } from "@repo/models";
 interface CardProps {
-  request: Request;
+  request: RequestItem;
 }
 export function Card({ request }: CardProps) {
   return (
@@ -17,7 +16,7 @@ export function Card({ request }: CardProps) {
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {request.title}
       </p>
-      <p>{dayjs(request.createdAt).format('DD/MM/YYYY h:mm a')}</p>
+      <p>{dayjs(request.createdAt).format("DD/MM/YYYY h:mm a")}</p>
     </div>
   );
 }

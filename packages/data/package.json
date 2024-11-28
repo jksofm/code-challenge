@@ -1,0 +1,25 @@
+{
+    "name": "@repo/data",
+    "version": "0.0.0",
+    "exports": {
+      "./*": "./src/*/index.ts"
+    },
+    "license": "MIT",
+    "scripts": {
+      "lint": "eslint \"**/*.{ts,tsx}\""
+    },
+    "dependencies": {
+      "@reduxjs/toolkit": "^2.2.3",
+      "@repo/models": "*",
+      "@repo/utils": "*"
+ 
+    },
+    "devDependencies": {
+      "@repo/eslint-config": "*",
+      "@repo/typescript-config": "*",
+      "@types/react": "^18.2.74",
+      "eslint": "^8.57.0",
+      "typescript": "^5.3.3"
+    }
+  }
+  

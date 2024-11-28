@@ -1,18 +1,18 @@
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Request, RequestData, Response } from '../models';
 import { NextPageWithLayout } from './_app';
 import { ReactElement, useState } from 'react';
 import { API_URL, defaultPagination } from '../constants';
-
-import { Card, Loading, Pagination } from '../components';
+import React from 'react';
 import { appService } from '../service/app.service';
+import { Card, Loading, Pagination } from '@repo/ui/components';
+import { ApiResponse, RequestData, RequestItem } from '@repo/models';
 
 export const getStaticProps = (async () => {
-  const res = await fetch(API_URL);
+  const res = await fetch(API_URL as string);
   const response = await res.json();
   return { props: { response } };
 }) satisfies GetStaticProps<{
-  response: Response;
+  response: ApiResponse;
 }>;
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
@@ -20,9 +20,9 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>;
 const Page: NextPageWithLayout<Props> = ({
   response,
 }: {
-  response: Response;
+  response: ApiResponse;
 }) => {
-  const [data, setData] = useState<Request[]>(response.items);
+  const [data, setData] = useState<RequestItem[]>(response.items);
 
   const [pagination, setPagination] = useState<RequestData>(
     response
@@ -50,7 +50,7 @@ const Page: NextPageWithLayout<Props> = ({
   };
   const loading = isLoading || isValidating;
 
-  if (!data.length) return <div>Failed to fetch data</div>;
+  // if (!data.length) return <DataError />;
 
   return (
     <div className="px-8 py-12">

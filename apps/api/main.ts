@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
+import { ApiResponse, RequestItem } from '@repo/models';
 
 const app = express();
 const port = 3001;
@@ -23,8 +24,8 @@ app.get('/api/data', (req, res) => {
   const limit = parseInt(req.query.limit as string) || 10;
   const filePath = path.join(__dirname, 'requests-data.json');
 
-  const items = readJSONFile(filePath);
-  items.sort((a: any, b: any) => {
+  const items: RequestItem[] = readJSONFile(filePath);
+  items.sort((a, b) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
   const startIndex = (page - 1) * limit;
@@ -32,13 +33,15 @@ app.get('/api/data', (req, res) => {
 
   const paginatedItems = items.slice(startIndex, endIndex);
 
-  res.json({
+  const responseData: ApiResponse = {
     totalItems: items.length,
     limit: limit,
     totalPages: Math.ceil(items.length / limit),
     currentPage: page,
     items: paginatedItems,
-  });
+  };
+
+  res.json(responseData);
 });
 
 // App start
