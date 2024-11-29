@@ -1,0 +1,17 @@
+{
+    "name": "@repo/tailwind-config",
+    "version": "0.0.0",
+    "export": {
+     "." : "./tailwindcss.config.ts"
+    },
+    "license": "MIT",
+ 
+    
+  
+    "devDependencies": {
+        "@repo/typescript-config": "*",
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.49",
+        "tailwindcss": "^3.4.1"
+    }
+}

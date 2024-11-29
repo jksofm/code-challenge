@@ -1,8 +1,14 @@
-import withTM from 'next-transpile-modules';
+/* eslint-disable */
+const withTM = require('next-transpile-modules')([
+  '@repo/ui',
+  '@repo/utils',
+  '@repo/data',
+]);
 
-const transpileModules = withTM(['@repo/ui', '@repo/utils', '@repo/data']);
-
-export default transpileModules({
+module.exports = withTM({
+  experimental: {
+    externalDir: true,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.(ts|tsx)$/,

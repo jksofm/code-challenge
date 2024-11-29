@@ -1,11 +1,13 @@
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextPageWithLayout } from './_app';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useMemo, useState } from 'react';
 import { API_URL, defaultPagination } from '../constants';
 import React from 'react';
 import { appService } from '../service/app.service';
-import { Card, Loading, Pagination } from '@repo/ui/components';
-import { ApiResponse, RequestData, RequestItem } from '@repo/models';
+import { Card, CardSkeleton, DataError, NoData, Pagination } from '@repo/ui';
+import { ApiResponse, RequestItem } from '@repo/models';
+import { useRouter } from 'next/router';
+import { useRouterLoading } from '@repo/utils';
 
 export const getStaticProps = (async () => {
   const res = await fetch(API_URL as string);
@@ -22,18 +24,37 @@ const Page: NextPageWithLayout<Props> = ({
 }: {
   response: ApiResponse;
 }) => {
-  const [data, setData] = useState<RequestItem[]>(response.items);
+  const [data, setData] = useState<RequestItem[]>(response?.items || []);
+  const router = useRouter();
+  const { isRouterLoading } = useRouterLoading();
 
-  const [pagination, setPagination] = useState<RequestData>(
-    response
-      ? {
-          currentPage: response.currentPage,
-          limit: response.totalPages,
-        }
-      : defaultPagination
-  );
+  const query = router.query;
 
-  const { isLoading, isValidating } = appService.useGetRequest(pagination, {
+  const defaultPag = useMemo(() => {
+    if (
+      Number.isInteger(Number(query.page)) &&
+      Number.isInteger(Number(query.limit))
+    ) {
+      return {
+        currentPage: Number(query.page),
+        limit: Number(query.limit),
+      };
+    }
+    if (response) {
+      return {
+        currentPage: response.currentPage,
+        limit: response.limit,
+      };
+    }
+    return defaultPagination;
+  }, [query]);
+
+  const {
+    isLoading,
+    isValidating,
+    error,
+    data: clientResponse,
+  } = appService.useGetRequest(defaultPag, {
     onSuccess: (data) => {
       setData(data.items);
     },
@@ -42,35 +63,39 @@ const Page: NextPageWithLayout<Props> = ({
     },
   });
 
-  const handlePageChange = (pageNumber: number) => {
-    setPagination({
-      ...pagination,
-      currentPage: pageNumber,
-    });
-  };
-  const loading = isLoading || isValidating;
+  if (!data.length && error) return <DataError />;
 
-  // if (!data.length) return <DataError />;
+  const Content = () => {
+    if (isValidating || isLoading || isRouterLoading)
+      return (
+        <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+          {Array.from({ length: 12 }).map((_, index) => (
+            <CardSkeleton key={index} />
+          ))}
+        </div>
+      );
+    if (!data.length) return <NoData />;
+    return (
+      <>
+        <ul className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+          {data.map((request) => {
+            return <Card request={request} key={request.id} />;
+          })}
+        </ul>
+        <Pagination
+          currentPage={defaultPag.currentPage}
+          totalPages={response?.totalPages || clientResponse?.totalPages || 0}
+          limit={defaultPag.limit}
+        />
+      </>
+    );
+  };
 
   return (
-    <div className="px-8 py-12">
-      <h1 className="mb-4 text-4xl text-center">Requests</h1>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <ul className="grid grid-cols-2 gap-4">
-            {data.map((request) => {
-              return <Card request={request} key={request.id} />;
-            })}
-          </ul>
-          <Pagination
-            currentPage={pagination.currentPage}
-            totalPages={response.totalPages}
-            onPageChange={handlePageChange}
-          />
-        </>
-      )}
+    <div className="min-h-[100vh] px-8 py-12">
+      <h1 className="mb-8 text-4xl text-center">Requests</h1>
+
+      <Content />
     </div>
   );
 };

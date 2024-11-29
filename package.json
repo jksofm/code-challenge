@@ -24,6 +24,7 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^20.17.8",
     "@types/react": "^18.3.12",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.2",
     "globals": "^15.12.0",
@@ -45,5 +46,10 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@repo/tailwind-config": "^0.0.0",
+    "@repo/ui": "^0.0.0",
+    "@repo/utils": "^0.0.0"
+  }
 }

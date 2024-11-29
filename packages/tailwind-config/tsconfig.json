@@ -1,0 +1,6 @@
+// tsconfig.json
+{
+    "extends": "@repo/typescript-config/base.json",
+   
+    "exclude": ["node_modules", "dist"]
+  }

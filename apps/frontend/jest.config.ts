@@ -1,13 +1,20 @@
-import type { Config } from 'jest';
 import nextJest from 'next/jest.js';
-
-const config: Config = {
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['../../jest-setup.ts'],
-};
 
 const createJestConfig = nextJest({
   dir: './',
 });
 
-export default createJestConfig(config);
+const customJestConfig = {
+  setupFilesAfterEnv: ['./jest-setup.ts'],
+  moduleNameMapper: {
+    // Mock CSS/SCSS files
+    '\\.(css|scss)$': 'identity-obj-proxy',
+    // Mock static file imports
+    '\\.(png|jpg|jpeg|gif|webp|svg|ico)$': '<rootDir>/__mocks__/fileMock.js',
+    '^@repo/ui/(.*)$': '<rootDir>/packages/ui/src/$1',
+  },
+
+  testEnvironment: 'jsdom',
+};
+
+module.exports = createJestConfig(customJestConfig);

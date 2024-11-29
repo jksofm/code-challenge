@@ -17,13 +17,16 @@
     "strict": true,
     "target": "ES2022",
     "jsx": "preserve",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
-      "@ui/*": ["../../packages/ui/src/*"],
-      "@data/*": ["../../packages/data/src/*"],
-      "@models/*": ["../../packages/models/src/*"],
-      "@utils/*": ["../../packages/utils/src/*"],
-      "@constants/*": ["../../packages/constants/src/*"]
+      "@repo/ui/*": ["../../packages/ui/src/*"],
+      "@repo/data/*": ["../../packages/data/src/*"],
+      "@repo/models/*": ["../../packages/models/src/*"],
+      "@repo/utils/*": ["../../packages/utils/src/*"],
+      "@repo/constants/*": ["../../packages/constants/src/*"],
+      "@repo/tailwindcss/*": ["../../packages/tailwind-config/*"]
+      
     }
   },
   "ts-node": {

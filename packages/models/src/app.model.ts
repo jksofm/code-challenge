@@ -3,8 +3,8 @@ export interface RequestItem {
   title: string;
   author: string;
   createdAt: number;
-  published: false;
-  auction: false;
+  published: boolean;
+  auction: boolean;
 }
 
 export interface ApiResponse extends RequestData {

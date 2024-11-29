@@ -1,6 +1,14 @@
+@import "@repo/ui/style";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+body{
+    background-color: rgb(231, 210, 210);
+}
 
 
 

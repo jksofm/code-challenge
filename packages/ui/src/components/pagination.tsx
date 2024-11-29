@@ -1,19 +1,27 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (pageNumber: number) => void;
+  onPageChange?: (pageNumber: number) => void;
+  limit?: number;
 }
 
 export function Pagination({
   currentPage,
   totalPages,
-  onPageChange,
+  limit = 10,
 }: PaginationProps) {
+  const router = useRouter();
   const handlePageChange = (pageNumber: number | string) => {
     if (pageNumber !== "..." && pageNumber !== currentPage) {
-      onPageChange(pageNumber as number);
+      router.push({
+        query: {
+          page: pageNumber,
+          limit,
+        },
+      });
     }
   };
 
@@ -62,6 +70,7 @@ export function Pagination({
         className={`cursor-pointer w-10 h-10 rounded-full flex items-center justify-center ${
           number === currentPage ? "bg-blue-500 text-white font-bold" : ""
         }`}
+        data-testid={`pagination-number-${number}`}
         onClick={() => handlePageChange(number)}
       >
         {number}
@@ -72,6 +81,7 @@ export function Pagination({
   return (
     <div className="flex items-center justify-end mt-8">
       <button
+        data-testid="prev-page-button"
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
         className="w-10 h-10 disabled:opacity-50 disabled:cursor-not-allowed rounded-full flex items-center justify-center"
@@ -80,6 +90,7 @@ export function Pagination({
       </button>
       {renderPageNumbers()}
       <button
+        data-testid="next-page-button"
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         className="w-10 h-10 disabled:opacity-50 disabled:cursor-not-allowed rounded-full flex items-center justify-center"

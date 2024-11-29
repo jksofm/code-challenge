@@ -14,7 +14,7 @@
     "incremental": true,
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@repo/*": ["../../packages/*"]
     }

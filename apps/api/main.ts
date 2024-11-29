@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { ApiResponse, RequestItem } from '@repo/models';
 
-const app = express();
+export const app = express();
 const port = 3001;
 
 // Middlewares
@@ -24,7 +24,8 @@ app.get('/api/data', (req, res) => {
   const limit = parseInt(req.query.limit as string) || 10;
   const filePath = path.join(__dirname, 'requests-data.json');
 
-  const items: RequestItem[] = readJSONFile(filePath);
+  const items: RequestItem[] = readJSONFile(filePath) || [];
+
   items.sort((a, b) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });

@@ -1,12 +1,14 @@
-/* eslint-disable */
 import React from "react";
 
-export function DataError() {
+interface Props {
+  text?: string;
+}
+export function NoData({ text = "No data available" }: Props) {
   return (
-    <div className="bg-gray-100 flex-col h-screen flex item-scenter justify-center">
+    <div className="flex-col mt-[150px] flex item-scenter justify-center">
       <center className="">
         <svg
-          className="emoji-404"
+          className="emoji-404 "
           enableBackground="new 0 0 226 249.135"
           height="249.135"
           id="Layer_1"
@@ -18,7 +20,7 @@ export function DataError() {
         >
           <circle cx="113" cy="113" fill="#FFE585" r="109" />
           <line
-            enableBackground="new"
+            enableBackground="new    "
             fill="none"
             opacity="0.29"
             stroke="#6E6E96"
@@ -31,7 +33,7 @@ export function DataError() {
             y2="245.135"
           />
           <line
-            enableBackground="new"
+            enableBackground="new    "
             fill="none"
             opacity="0.17"
             stroke="#6E6E96"
@@ -44,7 +46,7 @@ export function DataError() {
             y2="245.135"
           />
           <line
-            enableBackground="new"
+            enableBackground="new    "
             fill="none"
             opacity="0.17"
             stroke="#6E6E96"
@@ -59,7 +61,7 @@ export function DataError() {
           <circle cx="68.732" cy="93" fill="#6E6E96" r="9" />
           <path
             d="M115.568,5.947c-1.026,0-2.049,0.017-3.069,0.045  c54.425,1.551,98.069,46.155,98.069,100.955c0,55.781-45.219,101-101,101c-55.781,0-101-45.219-101-101  c0-8.786,1.124-17.309,3.232-25.436c-3.393,10.536-5.232,21.771-5.232,33.436c0,60.199,48.801,109,109,109s109-48.801,109-109  S175.768,5.947,115.568,5.947z"
-            enableBackground="new"
+            enableBackground="new    "
             fill="#FF9900"
             opacity="0.24"
           />
@@ -67,7 +69,7 @@ export function DataError() {
           <ellipse
             cx="67.732"
             cy="140.894"
-            enableBackground="new"
+            enableBackground="new    "
             fill="#FF0000"
             opacity="0.18"
             rx="17.372"
@@ -76,7 +78,7 @@ export function DataError() {
           <ellipse
             cx="154.88"
             cy="140.894"
-            enableBackground="new"
+            enableBackground="new    "
             fill="#FF0000"
             opacity="0.18"
             rx="17.371"
@@ -96,9 +98,7 @@ export function DataError() {
           />
         </svg>
         <div className=" tracking-widest mt-4">
-          <span className="text-gray-500 text-xl">
-            Sorry, We couldn't get data! Please try again later!
-          </span>
+          <span className="text-gray-500 text-xl">{text}</span>
         </div>
       </center>
     </div>
